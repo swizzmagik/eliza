@@ -1,16 +1,16 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import {
-    type Memory,
-    type Goal,
-    type Relationship,
-    Actor,
-    GoalStatus,
     Account,
-    type UUID,
+    Actor,
+    DatabaseAdapter,
+    GoalStatus,
     Participant,
     Room,
+    type Goal,
+    type Memory,
+    type Relationship,
+    type UUID,
 } from "@elizaos/core";
-import { DatabaseAdapter } from "@elizaos/core";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { v4 as uuid } from "uuid";
 export class SupabaseDatabaseAdapter extends DatabaseAdapter {
     async getRoom(roomId: UUID): Promise<UUID | null> {
@@ -98,6 +98,7 @@ export class SupabaseDatabaseAdapter extends DatabaseAdapter {
     constructor(supabaseUrl: string, supabaseKey: string) {
         super();
         this.supabase = createClient(supabaseUrl, supabaseKey);
+        this.adapterType = "supabase";
     }
 
     async init() {

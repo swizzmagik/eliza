@@ -1,16 +1,16 @@
+import { CircuitBreaker } from "./database/CircuitBreaker";
+import { elizaLogger } from "./logger";
 import {
     Account,
     Actor,
     GoalStatus,
+    IDatabaseAdapter,
+    Participant,
     type Goal,
     type Memory,
     type Relationship,
     type UUID,
-    Participant,
-    IDatabaseAdapter,
 } from "./types.ts";
-import { CircuitBreaker } from "./database/CircuitBreaker";
-import { elizaLogger } from "./logger";
 
 /**
  * An abstract class representing a database adapter for managing various entities
@@ -21,6 +21,11 @@ export abstract class DatabaseAdapter<DB = any> implements IDatabaseAdapter {
      * The database instance.
      */
     db: DB;
+
+    /**
+     * The type of database adapter. This can be used to determine which features are available and allow for conditional logic.
+     */
+    adapterType: "sqlite" | "postgres" | "supabase";
 
     /**
      * Circuit breaker instance used to handle fault tolerance and prevent cascading failures.

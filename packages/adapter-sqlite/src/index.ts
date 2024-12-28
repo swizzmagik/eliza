@@ -1,11 +1,12 @@
-export * from "./sqliteTables.ts";
 export * from "./sqlite_vec.ts";
+export * from "./sqliteTables.ts";
 
-import { DatabaseAdapter, IDatabaseCacheAdapter } from "@elizaos/core";
 import {
     Account,
     Actor,
+    DatabaseAdapter,
     GoalStatus,
+    IDatabaseCacheAdapter,
     Participant,
     type Goal,
     type Memory,
@@ -72,6 +73,7 @@ export class SqliteDatabaseAdapter
     constructor(db: Database) {
         super();
         this.db = db;
+        this.adapterType = "sqlite";
         load(db);
     }
 

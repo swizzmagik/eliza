@@ -5,29 +5,29 @@ import pg from "pg";
 type Pool = pg.Pool;
 
 import {
+    Account,
+    Actor,
+    DatabaseAdapter,
+    EmbeddingProvider,
+    GoalStatus,
+    Participant,
+    elizaLogger,
+    getEmbeddingConfig,
+    type Goal,
+    type IDatabaseCacheAdapter,
+    type Memory,
+    type Relationship,
+    type UUID,
+} from "@elizaos/core";
+import fs from "fs";
+import path from "path";
+import {
     QueryConfig,
     QueryConfigValues,
     QueryResult,
     QueryResultRow,
 } from "pg";
-import {
-    Account,
-    Actor,
-    GoalStatus,
-    type Goal,
-    type Memory,
-    type Relationship,
-    type UUID,
-    type IDatabaseCacheAdapter,
-    Participant,
-    elizaLogger,
-    getEmbeddingConfig,
-    DatabaseAdapter,
-    EmbeddingProvider,
-} from "@elizaos/core";
-import fs from "fs";
 import { fileURLToPath } from "url";
-import path from "path";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -50,6 +50,8 @@ export class PostgresDatabaseAdapter
             resetTimeout: 60000,
             halfOpenMaxAttempts: 3,
         });
+
+        this.adapterType = "postgres";
 
         const defaultConfig = {
             max: 20,
