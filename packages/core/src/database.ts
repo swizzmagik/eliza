@@ -23,9 +23,9 @@ export abstract class DatabaseAdapter<DB = any> implements IDatabaseAdapter {
     db: DB;
 
     /**
-     * The type of database adapter. This can be used to determine which features are available and allow for conditional logic.
+     * The type of database adapter. This can be used to determine which features are available and allow for conditional logic. Typical values would be "sqlite", "postgres", "supabase", etc. however, this is not enforced and can be set to any string to prevent users of other adapters from having to modify the core code.
      */
-    adapterType: "sqlite" | "postgres" | "supabase";
+    adapterType?: string;
 
     /**
      * Circuit breaker instance used to handle fault tolerance and prevent cascading failures.
